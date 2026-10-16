@@ -97,8 +97,7 @@ string Book::toString() const
     string result = "Titre Livre: " + title +
                     "\nAuteur: " + author +
                     "\nISBN: " + isbn +
-                    "\nDisponible: " + dispo +
-                    "\nID de l'emprunteur: " + borrowerId;
+                    "\nDisponible: " + dispo;
     return result;
 }
 
