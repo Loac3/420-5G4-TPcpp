@@ -175,12 +175,40 @@ bool Library::returnBook(const string &isbn)
 }
 
 // Display all books
-void Library::displayAllBooks()
+void Library::displayAllBooks(char tri)
 {
     if (books.empty())
     {
         cout << "Aucun livre dans la bibliothèque.\n";
         return;
+    }
+
+    switch (tri)
+    {
+    case 'N':
+
+        break;
+
+    case 'T':
+        // trier par titre
+        sort(books.begin(), books.end(),
+             [](const unique_ptr<Book> &a, const unique_ptr<Book> &b)
+             {
+                 return a->getTitle() < b->getTitle();
+             });
+        break;
+
+    case 'A':
+        // trier par auteur
+        sort(books.begin(), books.end(),
+             [](const unique_ptr<Book> &a, const unique_ptr<Book> &b)
+             {
+                 return a->getAuthor() < b->getAuthor();
+             });
+        break;
+
+    default:
+        break;
     }
 
     cout << "\n=== TOUS LES LIVRES ===\n";
