@@ -1,10 +1,10 @@
 #include "filemanager.h"
 #include <chrono>
+#include <ctime>
 #include <filesystem>
 #include <fstream>
 #include <iomanip>
 #include <iostream>
-#include <ctime>
 
 using namespace std;
 
@@ -16,6 +16,10 @@ FileManager::FileManager(const string &booksFile, const string &usersFile,
 
 // Save all library data
 bool FileManager::saveLibraryData(Library &library) {
+  if (booksFileName.empty() || usersFileName.empty()) {
+    cout << "Sauvegarde ignorée : aucun répertoire de données est configuré (--data-dir).\n";
+    return false;
+  }
   return saveBooksToFile(library) && saveUsersToFile(library);
 }
 
@@ -135,8 +139,7 @@ void FileManager::createBackup() {
 // LOGS
 
 void FileManager::logEvent(string action, string titre, string auteur,
-                           string isbn, bool disponible,
-                           string nomEmprunteur) {
+                           string isbn, bool disponible, string nomEmprunteur) {
   ofstream logFile(logsFileName, ios::app);
   if (!logFile.is_open()) {
     cout << "Erreur : Impossible d'ouvrir le fichier de log.\n";
